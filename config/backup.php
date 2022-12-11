@@ -18,7 +18,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(),
+                    env('BACKUP_PROJECT_PATH'),
                 ],
 
                 /*
@@ -27,8 +27,7 @@ return [
                  * Directories used by the backup process will automatically be excluded.
                  */
                 'exclude' => [
-                    base_path('vendor'),
-                    base_path('node_modules'),
+                    env('BACKUP_PROJECT_EXCLUDE_PATH'),
                 ],
 
                 /*
@@ -123,7 +122,7 @@ return [
         /*
          * The directory where the temporary files will be stored.
          */
-        'temporary_directory' => storage_path('app/backup-temp'),
+        'temporary_directory' => storage_path('backup'),
 
         /*
          * The password to be used for archive encryption.
@@ -218,7 +217,7 @@ return [
 
     'cleanup' => [
         /*
-         * The strategy that will be used to cleanup old backups. The default strategy
+         * The strategy that will be used to clean up old backups. The default strategy
          * will keep all backups for a certain amount of days. After that period only
          * a daily backup will be kept. After that period only weekly backups will
          * be kept and so on.
