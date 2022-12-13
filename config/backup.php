@@ -8,7 +8,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => env('APP_NAME', 'laravel-backup'),
+        'name' => env('APP_NAME'),
 
         'source' => [
 
@@ -115,8 +115,8 @@ return [
              * The disk names on which the backups will be stored.
              */
             'disks' => [
-                's3',
                 'dropbox',
+                's3'
             ],
         ],
 
@@ -152,11 +152,11 @@ return [
 
         'notifications' => [
             \Spatie\Backup\Notifications\Notifications\BackupHasFailed::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class => ['mail'],
-            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class => ['mail'],
+            \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFound::class => [],
+            \Spatie\Backup\Notifications\Notifications\CleanupHasFailed::class => [],
+            \Spatie\Backup\Notifications\Notifications\BackupWasSuccessful::class => [],
+            \Spatie\Backup\Notifications\Notifications\HealthyBackupWasFound::class => [],
+            \Spatie\Backup\Notifications\Notifications\CleanupWasSuccessful::class => [],
         ],
 
         /*
@@ -166,11 +166,11 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => '',
+            'to' => env('BACKUP_MAIL_TO_ADDRESS'),
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-                'name' => env('MAIL_FROM_NAME', 'Example'),
+                'address' => env('MAIL_FROM_ADDRESS'),
+                'name' => env('MAIL_FROM_NAME'),
             ],
         ],
 
@@ -197,7 +197,7 @@ return [
     'monitor_backups' => [
         [
             'name' => env('APP_NAME', 'laravel-backup'),
-            'disks' => ['s3'],
+            'disks' => [''],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
